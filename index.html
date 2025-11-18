@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Adressverwaltung</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #f3f4f6;
+}
+
+.address_app_wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.address_app_card {
+    width: 100%;
+    max-width: 520px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    box-sizing: border-box;
+}
+
+.address_app_title {
+    font-size: 22px;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.address_app_subtitle {
+    font-size: 14px;
+    margin: 0 0 16px 0;
+    color: #6b7280;
+}
+
+.address_app_form_section {
+    margin-bottom: 20px;
+}
+
+.address_app_form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.address_app_field_group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.address_app_label {
+    font-size: 13px;
+    color: #374151;
+}
+
+.address_app_input {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.address_app_input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb20;
+}
+
+.address_app_actions_row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.address_app_button_primary {
+    flex: 1;
+    padding: 11px 12px;
+    border-radius: 999px;
+    border: none;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.address_app_button_secondary {
+    padding: 11px 16px;
+    border-radius: 999px;
+    border: none;
+    background-color: #e5e7eb;
+    color: #111827;
+    font-size: 14px;
+}
+
+.address_app_list_section_title {
+    font-size: 15px;
+    margin: 0 0 10px 0;
+    color: #111827;
+}
+
+.address_app_list_empty {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.address_app_list_container {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.address_app_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.address_app_list_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.address_app_item_text {
+    font-size: 14px;
+    color: #111827;
+}
+
+.address_app_item_secondary {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.address_app_item_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.address_app_button_small {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: none;
+    font-size: 12px;
+}
+
+.address_app_button_edit {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.address_app_button_delete {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+@media (min-width: 768px) {
+    .address_app_card {
+        padding: 24px;
+    }
+    .address_app_title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 360px) {
+    .address_app_card {
+        padding: 16px;
+    }
+    .address_app_button_primary {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+<body>
+<section class="address_app_wrapper">
+<section class="address_app_card">
+<section class="address_app_header_section">
+<h1 class="address_app_title">Adressverwaltung</h1>
+<p class="address_app_subtitle">Erfassen, bearbeiten und löschen Sie Adressen direkt auf diesem Gerät.</p>
+</section>
+<section class="address_app_form_section">
+<form id="address_app_form" class="address_app_form">
+<section class="address_app_field_group">
+<label class="address_app_label" for="address_app_name">Name</label>
+<input class="address_app_input" id="address_app_name" type="text" required>
+</section>
+<section class="address_app_field_group">
+<label class="address_app_label" for="address_app_street">Straße und Hausnummer</label>
+<input class="address_app_input" id="address_app_street" type="text" required>
+</section>
+<section class="address_app_field_group">
+<label class="address_app_label" for="address_app_postcode">PLZ</label>
+<input class="address_app_input" id="address_app_postcode" type="text" required>
+</section>
+<section class="address_app_field_group">
+<label class="address_app_label" for="address_app_city">Ort</label>
+<input class="address_app_input" id="address_app_city" type="text" required>
+</section>
+<section class="address_app_actions_row">
+<button type="submit" class="address_app_button_primary" id="address_app_save_button">Speichern</button>
+<button type="button" class="address_app_button_secondary" id="address_app_reset_button">Neu</button>
+</section>
+</form>
+</section>
+<section class="address_app_list_section">
+<p class="address_app_list_section_title">Gespeicherte Adressen</p>
+<div class="address_app_list_container">
+<ul class="address_app_list" id="address_app_list"></ul>
+<p class="address_app_list_empty" id="address_app_empty_text">Noch keine Adressen gespeichert.</p>
+</div>
+</section>
+</section>
+</section>
+<script>
+var addressAppStorageKey = "address_app_items_v1";
+var addressAppEditIndex = null;
+function addressAppLoadItems() {
+    var raw = localStorage.getItem(addressAppStorageKey);
+    if (!raw) {
+        return [];
+    }
+    try {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+        return [];
+    } catch (e) {
+        return [];
+    }
+}
+function addressAppSaveItems(items) {
+    localStorage.setItem(addressAppStorageKey, JSON.stringify(items));
+}
+function addressAppClearForm() {
+    document.getElementById("address_app_name").value = "";
+    document.getElementById("address_app_street").value = "";
+    document.getElementById("address_app_postcode").value = "";
+    document.getElementById("address_app_city").value = "";
+    addressAppEditIndex = null;
+    document.getElementById("address_app_save_button").textContent = "Speichern";
+}
+function addressAppRenderList() {
+    var listElement = document.getElementById("address_app_list");
+    var emptyText = document.getElementById("address_app_empty_text");
+    listElement.innerHTML = "";
+    var items = addressAppLoadItems();
+    if (items.length === 0) {
+        emptyText.style.display = "block";
+        return;
+    }
+    emptyText.style.display = "none";
+    items.forEach(function(item, index) {
+        var li = document.createElement("li");
+        li.className = "address_app_list_item";
+        var textContainer = document.createElement("div");
+        textContainer.className = "address_app_item_text_container";
+        var primaryLine = document.createElement("div");
+        primaryLine.className = "address_app_item_text";
+        primaryLine.textContent = item.name || "";
+        var secondaryLine = document.createElement("div");
+        secondaryLine.className = "address_app_item_secondary";
+        var parts = [];
+        if (item.street) {
+            parts.push(item.street);
+        }
+        var cityParts = [];
+        if (item.postcode) {
+            cityParts.push(item.postcode);
+        }
+        if (item.city) {
+            cityParts.push(item.city);
+        }
+        if (cityParts.length > 0) {
+            parts.push(cityParts.join(" "));
+        }
+        secondaryLine.textContent = parts.join(", ");
+        textContainer.appendChild(primaryLine);
+        textContainer.appendChild(secondaryLine);
+        var buttonContainer = document.createElement("div");
+        buttonContainer.className = "address_app_item_buttons";
+        var editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "address_app_button_small address_app_button_edit";
+        editButton.textContent = "Bearbeiten";
+        editButton.addEventListener("click", function() {
+            addressAppStartEdit(index);
+        });
+        var deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "address_app_button_small address_app_button_delete";
+        deleteButton.textContent = "Löschen";
+        deleteButton.addEventListener("click", function() {
+            addressAppDelete(index);
+        });
+        buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(deleteButton);
+        li.appendChild(textContainer);
+        li.appendChild(buttonContainer);
+        listElement.appendChild(li);
+    });
+}
+function addressAppStartEdit(index) {
+    var items = addressAppLoadItems();
+    if (index < 0 || index >= items.length) {
+        return;
+    }
+    var item = items[index];
+    document.getElementById("address_app_name").value = item.name || "";
+    document.getElementById("address_app_street").value = item.street || "";
+    document.getElementById("address_app_postcode").value = item.postcode || "";
+    document.getElementById("address_app_city").value = item.city || "";
+    addressAppEditIndex = index;
+    document.getElementById("address_app_save_button").textContent = "Aktualisieren";
+}
+function addressAppDelete(index) {
+    var items = addressAppLoadItems();
+    if (index < 0 || index >= items.length) {
+        return;
+    }
+    items.splice(index, 1);
+    addressAppSaveItems(items);
+    addressAppRenderList();
+    addressAppClearForm();
+}
+document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("address_app_form");
+    var resetButton = document.getElementById("address_app_reset_button");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var nameValue = document.getElementById("address_app_name").value.trim();
+        var streetValue = document.getElementById("address_app_street").value.trim();
+        var postcodeValue = document.getElementById("address_app_postcode").value.trim();
+        var cityValue = document.getElementById("address_app_city").value.trim();
+        if (!nameValue || !streetValue || !postcodeValue || !cityValue) {
+            return;
+        }
+        var items = addressAppLoadItems();
+        var entry = {
+            name: nameValue,
+            street: streetValue,
+            postcode: postcodeValue,
+            city: cityValue
+        };
+        if (addressAppEditIndex === null) {
+            items.push(entry);
+        } else {
+            items[addressAppEditIndex] = entry;
+        }
+        addressAppSaveItems(items);
+        addressAppRenderList();
+        addressAppClearForm();
+    });
+    resetButton.addEventListener("click", function() {
+        addressAppClearForm();
+    });
+    addressAppRenderList();
+});
+</script>
+</body>
+</html>
